@@ -1,6 +1,6 @@
 # udp_byte_transport
 
-A C++17 library that implements a UDP transport as a `byte_transport` plugin, built with CMake and installed as a consumable CMake package.
+A library that implements a UDP transport as a `byte_transport` plugin, built with CMake and installed as a consumable CMake package.
 
 ## What it does
 
@@ -53,9 +53,16 @@ If a required key is missing, a port is out of range, or a timeout is invalid, i
 - A read/write **error** returns `-1`.
 - A read **timeout** with no datagram available returns `0` (`EAGAIN`/`EWOULDBLOCK`).
 
+## Prerequisites
+
+- A C++17 (or later) compiler.
+- CMake >= 3.13.
+- The installed `PendarlabByteTransport` package.
+- GoogleTest (`find_package(GTest CONFIG REQUIRED)`).
+
 ## Quick start (build)
 
-Requires CMake >= 3.13, the installed `PendarlabByteTransport` package, and GoogleTest (`find_package(GTest CONFIG REQUIRED)`). Point `CMAKE_PREFIX_PATH` at the directory containing the installed pendarlab packages.
+Point `CMAKE_PREFIX_PATH` at the directory containing the installed pendarlab packages.
 
 ```bash
 cmake -S . -B build -DCMAKE_PREFIX_PATH=/path/to/installed/packages

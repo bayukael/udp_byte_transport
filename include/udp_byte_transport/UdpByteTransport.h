@@ -25,6 +25,6 @@ namespace pendarlab::lib::comm
 
   private:
     struct UdpByteTransportImpl;
-    std::unique_ptr<UdpByteTransportImpl> p_impl_;
+    std::unique_ptr<UdpByteTransportImpl> d;
   };
 } // namespace pendarlab::lib::comm

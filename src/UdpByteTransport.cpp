@@ -11,7 +11,7 @@ namespace pendarlab::lib::comm
   };
 
   UdpByteTransport::UdpByteTransport(int socket_fd) :
-      p_impl_(std::make_unique<UdpByteTransport::UdpByteTransportImpl>(socket_fd))
+      d(std::make_unique<UdpByteTransport::UdpByteTransportImpl>(socket_fd))
   {
   }
 
@@ -19,10 +19,10 @@ namespace pendarlab::lib::comm
 
   int UdpByteTransport::read(unsigned char* buf, unsigned int buf_size)
   {
-    if (p_impl_->socket_fd_ < 0) { // no valid socket
+    if (d->socket_fd_ < 0) { // no valid socket
       return -1;
     }
-    ssize_t n = recv(p_impl_->socket_fd_, buf, buf_size, 0);
+    ssize_t n = recv(d->socket_fd_, buf, buf_size, 0);
     if (n < 0) {
       if (errno == EAGAIN || errno == EWOULDBLOCK) {
         return 0; // read timeout with no datagram available
@@ -34,10 +34,10 @@ namespace pendarlab::lib::comm
 
   int UdpByteTransport::write(const unsigned char* buf, unsigned int length)
   {
-    if (p_impl_->socket_fd_ < 0) { // no valid socket
+    if (d->socket_fd_ < 0) { // no valid socket
       return -1;
     }
-    ssize_t n = send(p_impl_->socket_fd_, buf, length, 0);
+    ssize_t n = send(d->socket_fd_, buf, length, 0);
     if (n < 0) {
       return -1;
     }
